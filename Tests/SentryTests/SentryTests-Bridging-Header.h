@@ -82,6 +82,7 @@
 #import "SentryFramesTracker.h"
 #import "SentryFramesTrackingIntegration.h"
 #import "SentryGlobalEventProcessor.h"
+#import "SentryHexAddressFormatter.h"
 #import "SentryHttpDateParser.h"
 #import "SentryHttpStatusCodeRange+Private.h"
 #import "SentryHttpTransport.h"

@@ -1,0 +1,246 @@
+{
+    "threadAttributed" : true,
+    "callStackRootFrames" : [
+      {
+        "binaryUUID" : "7C4FAD70-B47C-302F-893B-25910E13D3D7",
+        "offsetIntoBinaryTextSegment" : 403592,
+        "sampleCount" : 1,
+        "subFrames" : [
+          {
+            "binaryUUID" : "ADC503E4-3299-38EC-8CA9-46ECB2733184",
+            "offsetIntoBinaryTextSegment" : 46464,
+            "sampleCount" : 1,
+            "subFrames" : [
+              {
+                "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                "offsetIntoBinaryTextSegment" : 2420052,
+                "sampleCount" : 1,
+                "subFrames" : [
+                  {
+                    "binaryUUID" : "7C4FAD70-B47C-302F-893B-25910E13D3D7",
+                    "offsetIntoBinaryTextSegment" : 285340,
+                    "sampleCount" : 1,
+                    "subFrames" : [
+                      {
+                        "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                        "offsetIntoBinaryTextSegment" : 2419252,
+                        "sampleCount" : 1,
+                        "subFrames" : [
+                          {
+                            "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                            "offsetIntoBinaryTextSegment" : 2417608,
+                            "sampleCount" : 1,
+                            "subFrames" : [
+                              {
+                                "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                "offsetIntoBinaryTextSegment" : 2417260,
+                                "sampleCount" : 1,
+                                "subFrames" : [
+                                  {
+                                    "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                    "offsetIntoBinaryTextSegment" : 2416292,
+                                    "sampleCount" : 1,
+                                    "subFrames" : [
+                                      {
+                                        "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                        "offsetIntoBinaryTextSegment" : 1034344,
+                                        "sampleCount" : 1,
+                                        "subFrames" : [
+                                          {
+                                            "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                            "offsetIntoBinaryTextSegment" : 1031300,
+                                            "sampleCount" : 1,
+                                            "subFrames" : [
+                                              {
+                                                "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                "offsetIntoBinaryTextSegment" : 1027908,
+                                                "sampleCount" : 1,
+                                                "subFrames" : [
+                                                  {
+                                                    "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                    "offsetIntoBinaryTextSegment" : 1025536,
+                                                    "sampleCount" : 1,
+                                                    "subFrames" : [
+                                                      {
+                                                        "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                        "offsetIntoBinaryTextSegment" : 1319908,
+                                                        "sampleCount" : 1,
+                                                        "subFrames" : [
+                                                          {
+                                                            "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                            "offsetIntoBinaryTextSegment" : 14237860,
+                                                            "sampleCount" : 1,
+                                                            "subFrames" : [
+                                                              {
+                                                                "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                                "offsetIntoBinaryTextSegment" : 6629184,
+                                                                "sampleCount" : 1,
+                                                                "subFrames" : [
+                                                                  {
+                                                                    "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                                    "offsetIntoBinaryTextSegment" : 13213648,
+                                                                    "sampleCount" : 1,
+                                                                    "subFrames" : [
+                                                                      {
+                                                                        "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                                        "offsetIntoBinaryTextSegment" : 13210012,
+                                                                        "sampleCount" : 1,
+                                                                        "subFrames" : [
+                                                                          {
+                                                                            "binaryUUID" : "5CDC5D9A-E506-3740-B64E-BB30867B4F1B",
+                                                                            "offsetIntoBinaryTextSegment" : 876372,
+                                                                            "sampleCount" : 1,
+                                                                            "subFrames" : [
+                                                                              {
+                                                                                "binaryUUID" : "5CDC5D9A-E506-3740-B64E-BB30867B4F1B",
+                                                                                "offsetIntoBinaryTextSegment" : 926508,
+                                                                                "sampleCount" : 1,
+                                                                                "subFrames" : [
+                                                                                  {
+                                                                                    "binaryUUID" : "5CDC5D9A-E506-3740-B64E-BB30867B4F1B",
+                                                                                    "offsetIntoBinaryTextSegment" : 418320,
+                                                                                    "sampleCount" : 1,
+                                                                                    "subFrames" : [
+                                                                                      {
+                                                                                        "binaryUUID" : "5CDC5D9A-E506-3740-B64E-BB30867B4F1B",
+                                                                                        "offsetIntoBinaryTextSegment" : 506792,
+                                                                                        "sampleCount" : 1,
+                                                                                        "subFrames" : [
+                                                                                          {
+                                                                                            "binaryUUID" : "5CDC5D9A-E506-3740-B64E-BB30867B4F1B",
+                                                                                            "offsetIntoBinaryTextSegment" : 528084,
+                                                                                            "sampleCount" : 1,
+                                                                                            "subFrames" : [
+                                                                                              {
+                                                                                                "binaryUUID" : "A633A095-1226-3942-8F41-3877660185EE",
+                                                                                                "offsetIntoBinaryTextSegment" : 4968,
+                                                                                                "sampleCount" : 1,
+                                                                                                "subFrames" : [
+                                                                                                  {
+                                                                                                    "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                                                                    "offsetIntoBinaryTextSegment" : 3810256,
+                                                                                                    "sampleCount" : 1,
+                                                                                                    "subFrames" : [
+                                                                                                      {
+                                                                                                        "binaryUUID" : "179501B6-0FC2-344A-B969-B4E3961EBE10",
+                                                                                                        "offsetIntoBinaryTextSegment" : 3809332,
+                                                                                                        "sampleCount" : 1,
+                                                                                                        "subFrames" : [
+                                                                                                          {
+                                                                                                            "binaryUUID" : "ADC503E4-3299-38EC-8CA9-46ECB2733184",
+                                                                                                            "offsetIntoBinaryTextSegment" : 35032,
+                                                                                                            "sampleCount" : 1,
+                                                                                                            "subFrames" : [
+                                                                                                              {
+                                                                                                                "binaryUUID" : "CB3FF411-4762-34D2-86A4-ECA13F9FB6C3",
+                                                                                                                "offsetIntoBinaryTextSegment" : 88416,
+                                                                                                                "sampleCount" : 1,
+                                                                                                                "binaryName" : "dyld",
+                                                                                                                "address" : 7339739488
+                                                                                                              }
+                                                                                                            ],
+                                                                                                            "binaryName" : "iOS-Swift",
+                                                                                                            "address" : 4374972632
+                                                                                                          }
+                                                                                                        ],
+                                                                                                        "binaryName" : "UIKitCore",
+                                                                                                        "address" : 6868365364
+                                                                                                      }
+                                                                                                    ],
+                                                                                                    "binaryName" : "UIKitCore",
+                                                                                                    "address" : 6868366288
+                                                                                                  }
+                                                                                                ],
+                                                                                                "binaryName" : "GraphicsServices",
+                                                                                                "address" : 7789159272
+                                                                                              }
+                                                                                            ],
+                                                                                            "binaryName" : "CoreFoundation",
+                                                                                            "address" : 6829706964
+                                                                                          }
+                                                                                        ],
+                                                                                        "binaryName" : "CoreFoundation",
+                                                                                        "address" : 6829685672
+                                                                                      }
+                                                                                    ],
+                                                                                    "binaryName" : "CoreFoundation",
+                                                                                    "address" : 6829597200
+                                                                                  }
+                                                                                ],
+                                                                                "binaryName" : "CoreFoundation",
+                                                                                "address" : 6830105388
+                                                                              }
+                                                                            ],
+                                                                            "binaryName" : "CoreFoundation",
+                                                                            "address" : 6830055252
+                                                                          }
+                                                                        ],
+                                                                        "binaryName" : "UIKitCore",
+                                                                        "address" : 6877766044
+                                                                      }
+                                                                    ],
+                                                                    "binaryName" : "UIKitCore",
+                                                                    "address" : 6877769680
+                                                                  }
+                                                                ],
+                                                                "binaryName" : "UIKitCore",
+                                                                "address" : 6871185216
+                                                              }
+                                                            ],
+                                                            "binaryName" : "UIKitCore",
+                                                            "address" : 6878793892
+                                                          }
+                                                        ],
+                                                        "binaryName" : "UIKitCore",
+                                                        "address" : 6865875940
+                                                      }
+                                                    ],
+                                                    "binaryName" : "UIKitCore",
+                                                    "address" : 6865581568
+                                                  }
+                                                ],
+                                                "binaryName" : "UIKitCore",
+                                                "address" : 6865583940
+                                              }
+                                            ],
+                                            "binaryName" : "UIKitCore",
+                                            "address" : 6865587332
+                                          }
+                                        ],
+                                        "binaryName" : "UIKitCore",
+                                        "address" : 6865590376
+                                      }
+                                    ],
+                                    "binaryName" : "UIKitCore",
+                                    "address" : 6866972324
+                                  }
+                                ],
+                                "binaryName" : "UIKitCore",
+                                "address" : 6866973292
+                              }
+                            ],
+                            "binaryName" : "UIKitCore",
+                            "address" : 6866973640
+                          }
+                        ],
+                        "binaryName" : "UIKitCore",
+                        "address" : 6866975284
+                      }
+                    ],
+                    "binaryName" : "Sentry",
+                    "address" : 4376107676
+                  }
+                ],
+                "binaryName" : "UIKitCore",
+                "address" : 6866976084
+              }
+            ],
+            "binaryName" : "iOS-Swift",
+            "address" : 4374984064
+          }
+        ],
+        "binaryName" : "Sentry",
+        "address" : 4376225928
+      }
+    ]
+}

@@ -9,4 +9,9 @@ extension XCTestCase {
             sentrycrashcrs_addUserReport(pointer.baseAddress, Int32(jsonData.count))
         }
     }
+    
+    func contentsOfResource(resource: String, ofType: String = "json") throws -> Data {
+        let path = Bundle(for: type(of: self)).path(forResource: "Resources/\(resource)", ofType: "json")
+        return try Data(contentsOf: URL(fileURLWithPath: path ?? ""))
+    }
 }
