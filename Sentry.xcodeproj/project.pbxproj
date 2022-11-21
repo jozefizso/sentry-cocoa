@@ -3918,7 +3918,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BD9509F2924E3E1009EA8EB /* SentryMetricKitManager.swift in Sources */,
 				D81A3491291D0AC8005A27A9 /* SwiftDescriptor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4504,6 +4503,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Sentry. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.sentry.SentryPrivate;
@@ -4537,6 +4537,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Sentry. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.sentry.SentryPrivate;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4567,6 +4568,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Sentry. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.sentry.SentryPrivate;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4597,6 +4599,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Sentry. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = io.sentry.SentryPrivate;
 				PROVISIONING_PROFILE_SPECIFIER = "";
