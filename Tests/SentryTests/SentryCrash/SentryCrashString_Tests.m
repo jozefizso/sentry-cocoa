@@ -39,8 +39,8 @@
     uint64_t expected = 0x12345678;
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertTrue(success, @"");
-    XCTAssertEqual(result, expected, @"");
+    XCTAssertTrue(success);
+    XCTAssertEqual(result, expected);
 }
 
 - (void)testExtractHexValue2
@@ -49,8 +49,8 @@
     uint64_t expected = 0x1;
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertTrue(success, @"");
-    XCTAssertEqual(result, expected, @"");
+    XCTAssertTrue(success);
+    XCTAssertEqual(result, expected);
 }
 
 - (void)testExtractHexValue3
@@ -59,8 +59,8 @@
     uint64_t expected = 0x1234567890123456;
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertTrue(success, @"");
-    XCTAssertEqual(result, expected, @"");
+    XCTAssertTrue(success);
+    XCTAssertEqual(result, expected);
 }
 
 - (void)testExtractHexValueBeginning
@@ -69,8 +69,8 @@
     uint64_t expected = 0x12345678;
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertTrue(success, @"");
-    XCTAssertEqual(result, expected, @"");
+    XCTAssertTrue(success);
+    XCTAssertEqual(result, expected);
 }
 
 - (void)testExtractHexValueEnd
@@ -79,8 +79,8 @@
     uint64_t expected = 0x12345678;
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertTrue(success, @"");
-    XCTAssertEqual(result, expected, @"");
+    XCTAssertTrue(success);
+    XCTAssertEqual(result, expected);
 }
 
 - (void)testExtractHexValueEmpty
@@ -88,7 +88,7 @@
     const char *string = "";
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testExtractHexValueInvalid
@@ -96,7 +96,7 @@
     const char *string = "Some string with 0xoo and such";
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testExtractHexValueInvalid2
@@ -104,77 +104,77 @@
     const char *string = "Some string with 0xoo";
     uint64_t result = 0;
     bool success = sentrycrashstring_extractHexValue(string, (int)strlen(string), &result);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8String
 {
     const char *string = "A string";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 100);
-    XCTAssertTrue(success, @"");
+    XCTAssertTrue(success);
 }
 
 - (void)testIsNullTerminatedUTF8String2
 {
     const char *string = "テスト";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 100);
-    XCTAssertTrue(success, @"");
+    XCTAssertTrue(success);
 }
 
 - (void)testIsNullTerminatedUTF8String3
 {
     const char *string = "aŸঠ𐅐 and so on";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 100);
-    XCTAssertTrue(success, @"");
+    XCTAssertTrue(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringTooShort
 {
     const char *string = "A string";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 10, 100);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringTooLong
 {
     const char *string = "A string";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 5);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringInvalid
 {
     const char *string = "A string\xf8";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 100);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringInvalid2
 {
     const char *string = "A string\xc1zzz";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 100);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringInvalid3
 {
     const char *string = "\xc0";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 1, 1);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringInvalid4
 {
     const char *string = "blah \x80";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 1, 100);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testIsNullTerminatedUTF8StringInvalid5
 {
     const char *string = "\x01\x02\x03";
     bool success = sentrycrashstring_isNullTerminatedUTF8String(string, 2, 100);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 @end

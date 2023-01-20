@@ -54,18 +54,18 @@ XCTestCase (XCTestCase_SentryCrash)
         withIntermediateDirectories:YES
                          attributes:nil
                               error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     NSString *bundlePath = [[NSBundle bundleForClass:[self class]] resourcePath];
     NSArray *files = [fm contentsOfDirectoryAtPath:bundlePath error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     for (NSString *filename in files) {
         if ([filename rangeOfString:reportPrefix].location != NSNotFound) {
             [fm copyItemAtPath:[bundlePath stringByAppendingPathComponent:filename]
                         toPath:[reportsPath stringByAppendingPathComponent:filename]
                          error:&error];
-            XCTAssertNil(error, @"");
+            XCTAssertNil(error);
         }
     }
 }

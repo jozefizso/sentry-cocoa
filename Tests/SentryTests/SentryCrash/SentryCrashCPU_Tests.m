@@ -44,7 +44,7 @@
     [NSThread sleepForTimeInterval:0.1];
     kern_return_t kr;
     kr = thread_suspend(thread.thread);
-    XCTAssertTrue(kr == KERN_SUCCESS, @"");
+    XCTAssertTrue(kr == KERN_SUCCESS);
 
     SentryCrashMC_NEW_CONTEXT(machineContext);
     sentrycrashmc_getContextForThread(thread.thread, machineContext, NO);
@@ -58,17 +58,17 @@
     }
 
     const char *name = sentrycrashcpu_registerName(1000000);
-    XCTAssertTrue(name == NULL, @"");
+    XCTAssertTrue(name == NULL);
     uint64_t value = sentrycrashcpu_registerValue(machineContext, 1000000);
-    XCTAssertTrue(value == 0, @"");
+    XCTAssertTrue(value == 0);
 
     uintptr_t address;
     address = sentrycrashcpu_framePointer(machineContext);
-    XCTAssertTrue(address != 0, @"");
+    XCTAssertTrue(address != 0);
     address = sentrycrashcpu_stackPointer(machineContext);
-    XCTAssertTrue(address != 0, @"");
+    XCTAssertTrue(address != 0);
     address = sentrycrashcpu_instructionAddress(machineContext);
-    XCTAssertTrue(address != 0, @"");
+    XCTAssertTrue(address != 0);
 
     numRegisters = sentrycrashcpu_numExceptionRegisters();
     for (int i = 0; i < numRegisters; i++) {
@@ -78,9 +78,9 @@
     }
 
     name = sentrycrashcpu_exceptionRegisterName(1000000);
-    XCTAssertTrue(name == NULL, @"");
+    XCTAssertTrue(name == NULL);
     value = sentrycrashcpu_exceptionRegisterValue(machineContext, 1000000);
-    XCTAssertTrue(value == 0, @"");
+    XCTAssertTrue(value == 0);
 
     sentrycrashcpu_faultAddress(machineContext);
 

@@ -46,7 +46,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", @"key3", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchDictionaryPath
@@ -61,7 +61,7 @@
         @"key1", nil];
 
     id actual = [container sentry_objectForKeyPath:@"key1/key2/key3"];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchDictionaryPathAbs
@@ -76,7 +76,7 @@
         @"key1", nil];
 
     id actual = [container sentry_objectForKeyPath:@"/key1/key2/key3"];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchDictionary2
@@ -92,7 +92,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"1", @"2", @"3", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchDictionary2Path
@@ -107,7 +107,7 @@
         @"1", nil];
 
     id actual = [container sentry_objectForKeyPath:@"1/2/3"];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchArray
@@ -121,7 +121,7 @@
     id deepKey = [NSArray arrayWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1],
                           [NSNumber numberWithInt:1], nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchArrayString
@@ -134,7 +134,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"0", @"1", @"1", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchArrayString2
@@ -146,7 +146,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"0", @"1", @"key", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertNil(actual, @"");
+    XCTAssertNil(actual);
 }
 
 - (void)testDeepSearchArrayEmptyString
@@ -159,7 +159,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"0", @"1", @"", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchArrayPath
@@ -171,7 +171,7 @@
                  nil];
 
     id actual = [container sentry_objectForKeyPath:@"0/1/1"];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchMixed
@@ -186,7 +186,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"key1", [NSNumber numberWithInt:1], @"key3", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchMixedPath
@@ -200,7 +200,7 @@
         @"key1", nil];
 
     id actual = [container sentry_objectForKeyPath:@"key1/1/key3"];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDeepSearchNotFound
@@ -208,7 +208,7 @@
     id container = [NSDictionary dictionary];
     id deepKey = [NSArray arrayWithObjects:@"key1", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertNil(actual, @"");
+    XCTAssertNil(actual);
 }
 
 - (void)testDeepSearchNotFoundArray
@@ -216,7 +216,7 @@
     id container = [NSArray array];
     id deepKey = [NSArray arrayWithObjects:@"key1", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertNil(actual, @"");
+    XCTAssertNil(actual);
 }
 
 - (void)testDeepSearchNonContainerObject
@@ -232,7 +232,7 @@
     id deepKey =
         [NSArray arrayWithObjects:@"key1", [NSNumber numberWithInt:1], @"key3", @"key4", nil];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertNil(actual, @"");
+    XCTAssertNil(actual);
 }
 
 - (void)testSetObjectForDeepKeyDict
@@ -250,7 +250,7 @@
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", @"key3", nil];
     [container sentry_setObject:expected forDeepKey:deepKey];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testSetObjectForDeepKeyDictSimple
@@ -262,7 +262,7 @@
     id deepKey = [NSArray arrayWithObjects:@"key1", nil];
     [container sentry_setObject:expected forDeepKey:deepKey];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testSetObjectForDeepKeyDictEmptyKey
@@ -278,7 +278,7 @@
         @"key1", nil];
 
     id deepKey = [NSArray array];
-    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey]);
 }
 
 - (void)testSetObjectForDeepKeyArray
@@ -294,7 +294,7 @@
     id deepKey = [NSArray arrayWithObjects:@"0", @"key2", @"0", nil];
     [container sentry_setObject:expected forDeepKey:deepKey];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testSetObjectForKeyPathArray
@@ -310,7 +310,7 @@
     id deepKey = @"0/key2/0";
     [container sentry_setObject:expected forKeyPath:deepKey];
     id actual = [container sentry_objectForKeyPath:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testSetObjectForDeepKeyInvalidContainer
@@ -319,7 +319,7 @@
     id container = [NSDate date];
 
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", @"0", nil];
-    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey]);
 }
 
 - (void)testSetObjectForDeepKeyImmutableArray
@@ -333,7 +333,7 @@
         nil];
 
     id deepKey = [NSArray arrayWithObjects:@"0", @"key2", @"0", nil];
-    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey]);
 }
 
 - (void)testSetObjectForDeepKeyImmutableDict
@@ -349,7 +349,7 @@
         @"key1", nil];
 
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", [NSDate date], nil];
-    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_setObject:expected forDeepKey:deepKey]);
 }
 
 - (void)testSetObjectForKeyPathDict
@@ -367,7 +367,7 @@
     id deepKey = @"key1/key2/key3";
     [container sentry_setObject:expected forKeyPath:deepKey];
     id actual = [container sentry_objectForKeyPath:deepKey];
-    XCTAssertEqualObjects(expected, actual, @"");
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testRemoveObjectForDeepKeyDict
@@ -384,7 +384,7 @@
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", @"key3", nil];
     [container sentry_removeObjectForDeepKey:deepKey];
     id actual = [container sentry_objectForDeepKey:deepKey];
-    XCTAssertNil(actual, @"");
+    XCTAssertNil(actual);
 }
 
 - (void)testRemoveObjectForKeyPathDict
@@ -401,7 +401,7 @@
     id deepKey = @"key1/key2/key3";
     [container sentry_removeObjectForKeyPath:deepKey];
     id actual = [container sentry_objectForKeyPath:deepKey];
-    XCTAssertNil(actual, @"");
+    XCTAssertNil(actual);
 }
 
 - (void)testRemoveObjectForDeepKeyArray
@@ -415,7 +415,7 @@
 
     id deepKey = [NSArray arrayWithObjects:@"0", @"key2", @"0", nil];
     [container sentry_removeObjectForDeepKey:deepKey];
-    XCTAssertThrows([container sentry_objectForDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_objectForDeepKey:deepKey]);
 }
 
 - (void)testRemoveObjectForKeyPathArray
@@ -429,7 +429,7 @@
 
     id deepKey = @"0/key2/0";
     [container sentry_removeObjectForKeyPath:deepKey];
-    XCTAssertThrows([container sentry_objectForKeyPath:deepKey], @"");
+    XCTAssertThrows([container sentry_objectForKeyPath:deepKey]);
 }
 
 - (void)testRemoveObjectForDeepKeyInvalidContainer
@@ -437,7 +437,7 @@
     id container = [NSDate date];
 
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", @"0", nil];
-    XCTAssertThrows([container sentry_removeObjectForDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_removeObjectForDeepKey:deepKey]);
 }
 
 - (void)testRemoveObjectForDeepKeyImmutableArray
@@ -450,7 +450,7 @@
         nil];
 
     id deepKey = [NSArray arrayWithObjects:@"0", @"key2", @"0", nil];
-    XCTAssertThrows([container sentry_removeObjectForDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_removeObjectForDeepKey:deepKey]);
 }
 
 - (void)testRemoveObjectForDeepKeyImmutableDict
@@ -465,7 +465,7 @@
         @"key1", nil];
 
     id deepKey = [NSArray arrayWithObjects:@"key1", @"key2", [NSDate date], nil];
-    XCTAssertThrows([container sentry_removeObjectForDeepKey:deepKey], @"");
+    XCTAssertThrows([container sentry_removeObjectForDeepKey:deepKey]);
 }
 
 @end

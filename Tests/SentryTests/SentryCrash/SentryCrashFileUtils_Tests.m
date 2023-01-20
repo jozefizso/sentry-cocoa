@@ -389,7 +389,7 @@
     NSString *actual = [NSString stringWithCString:sentrycrashfu_lastPathEntry([path
                                                        cStringUsingEncoding:NSUTF8StringEncoding])
                                           encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testWriteBytesToFD
@@ -400,15 +400,15 @@
     int stringLength = (int)[expected length];
 
     int fd = open([path UTF8String], O_RDWR | O_CREAT | O_EXCL, 0644);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     bool result = sentrycrashfu_writeBytesToFD(
         fd, [expected cStringUsingEncoding:NSUTF8StringEncoding], stringLength);
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSString *actual = [NSString stringWithContentsOfFile:path
                                                  encoding:NSUTF8StringEncoding
                                                     error:&error];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testWriteBytesToFDBig
@@ -423,12 +423,12 @@
     }
 
     int fd = open([path UTF8String], O_RDWR | O_CREAT | O_EXCL, 0644);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     bool result = sentrycrashfu_writeBytesToFD(fd, [expected bytes], length);
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSMutableData *actual = [NSMutableData dataWithContentsOfFile:path options:0 error:&error];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testReadBytesFromFD
@@ -438,16 +438,16 @@
     NSString *expected = @"testing a bunch of stuff.\nOh look, a newline!";
     int stringLength = (int)[expected length];
     [expected writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     int fd = open([path UTF8String], O_RDONLY);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     NSMutableData *data = [NSMutableData dataWithLength:(NSUInteger)stringLength];
     bool result = sentrycrashfu_readBytesFromFD(fd, [data mutableBytes], stringLength);
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSString *actual = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testReadBytesFromFDBig
@@ -461,14 +461,14 @@
         [expected appendBytes:&byte length:1];
     }
     [expected writeToFile:path options:0 error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     int fd = open([path UTF8String], O_RDONLY);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     NSMutableData *actual = [NSMutableData dataWithLength:(NSUInteger)length];
     bool result = sentrycrashfu_readBytesFromFD(fd, [actual mutableBytes], length);
-    XCTAssertTrue(result, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertTrue(result);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testReadEntireFile
@@ -477,20 +477,20 @@
     NSString *path = [self.tempPath stringByAppendingPathComponent:@"test.txt"];
     NSString *expected = @"testing a bunch of stuff.\nOh look, a newline!";
     [expected writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     int fd = open([path UTF8String], O_RDONLY);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     char *bytes;
     int readLength;
     bool result = sentrycrashfu_readEntireFile([path UTF8String], &bytes, &readLength, 0);
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSMutableData *data = [NSMutableData dataWithBytesNoCopy:bytes
                                                       length:(unsigned)readLength
                                                 freeWhenDone:YES];
     NSString *actual = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testReadEntireFileBig
@@ -504,18 +504,18 @@
         [expected appendBytes:&byte length:1];
     }
     [expected writeToFile:path options:0 error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     int fd = open([path UTF8String], O_RDONLY);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     char *bytes;
     int readLength;
     bool result = sentrycrashfu_readEntireFile([path UTF8String], &bytes, &readLength, 0);
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSMutableData *actual = [NSMutableData dataWithBytesNoCopy:bytes
                                                         length:(unsigned)readLength
                                                   freeWhenDone:YES];
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testWriteStringToFD
@@ -525,15 +525,15 @@
     NSString *expected = @"testing a bunch of stuff.\nOh look, a newline!";
 
     int fd = open([path UTF8String], O_RDWR | O_CREAT | O_EXCL, 0644);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     bool result
         = sentrycrashfu_writeStringToFD(fd, [expected cStringUsingEncoding:NSUTF8StringEncoding]);
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSString *actual = [NSString stringWithContentsOfFile:path
                                                  encoding:NSUTF8StringEncoding
                                                     error:&error];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testWriteFmtToFD
@@ -543,14 +543,14 @@
     NSString *expected = @"test test testing 1 2.0 3";
 
     int fd = open([path UTF8String], O_RDWR | O_CREAT | O_EXCL, 0644);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     bool result = sentrycrashfu_writeFmtToFD(fd, "test test testing %d %.1f %s", 1, 2.0f, "3");
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSString *actual = [NSString stringWithContentsOfFile:path
                                                  encoding:NSUTF8StringEncoding
                                                     error:&error];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (bool)writeToFD:(int)fd fmt:(char *)fmt, ...
@@ -569,14 +569,14 @@
     NSString *expected = @"test test testing 1 2.0 3";
 
     int fd = open([path UTF8String], O_RDWR | O_CREAT | O_EXCL, 0644);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     bool result = [self writeToFD:fd fmt:"test test testing %d %.1f %s", 1, 2.0f, "3"];
-    XCTAssertTrue(result, @"");
+    XCTAssertTrue(result);
     NSString *actual = [NSString stringWithContentsOfFile:path
                                                  encoding:NSUTF8StringEncoding
                                                     error:&error];
-    XCTAssertNil(error, @"");
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testReadLineFromFD
@@ -588,37 +588,37 @@
     NSString *expected2 = @"line 2";
     NSString *expected3 = @"line 3";
     [source writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
     int fd = open([path UTF8String], O_RDONLY);
-    XCTAssertTrue(fd >= 0, @"");
+    XCTAssertTrue(fd >= 0);
     NSMutableData *data = [NSMutableData dataWithLength:100];
     int bytesRead;
     NSString *actual;
 
     bytesRead = sentrycrashfu_readLineFromFD(fd, [data mutableBytes], 100);
-    XCTAssertTrue(bytesRead > 0, @"");
+    XCTAssertTrue(bytesRead > 0);
     actual = [[NSString alloc] initWithBytes:[data bytes]
                                       length:(NSUInteger)bytesRead
                                     encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(actual, expected1, @"");
+    XCTAssertEqualObjects(actual, expected1);
 
     bytesRead = sentrycrashfu_readLineFromFD(fd, [data mutableBytes], 100);
-    XCTAssertTrue(bytesRead > 0, @"");
+    XCTAssertTrue(bytesRead > 0);
     actual = [[NSString alloc] initWithBytes:[data bytes]
                                       length:(NSUInteger)bytesRead
                                     encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(actual, expected2, @"");
+    XCTAssertEqualObjects(actual, expected2);
 
     bytesRead = sentrycrashfu_readLineFromFD(fd, [data mutableBytes], 100);
-    XCTAssertTrue(bytesRead > 0, @"");
+    XCTAssertTrue(bytesRead > 0);
     actual = [[NSString alloc] initWithBytes:[data bytes]
                                       length:(NSUInteger)bytesRead
                                     encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(actual, expected3, @"");
+    XCTAssertEqualObjects(actual, expected3);
 
     bytesRead = sentrycrashfu_readLineFromFD(fd, [data mutableBytes], 100);
-    XCTAssertTrue(bytesRead == 0, @"");
+    XCTAssertTrue(bytesRead == 0);
 }
 
 @end

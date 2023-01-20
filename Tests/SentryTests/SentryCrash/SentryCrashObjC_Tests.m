@@ -151,7 +151,7 @@ static NSArray *g_test_strings;
     NSMutableString *string = [NSMutableString stringWithFormat:@"%d", 1];
     void *stringPtr = (__bridge void *)string;
     bool valid = sentrycrashobjc_isValidObject(stringPtr);
-    XCTAssertTrue(valid, @"");
+    XCTAssertTrue(valid);
 }
 
 - (void)testStringLength
@@ -160,7 +160,7 @@ static NSArray *g_test_strings;
     void *stringPtr = (__bridge void *)string;
     int expectedLength = (int)string.length;
     int length = sentrycrashobjc_stringLength(stringPtr);
-    XCTAssertEqual(length, expectedLength, @"");
+    XCTAssertEqual(length, expectedLength);
 }
 
 - (void)testStringLength3
@@ -169,7 +169,7 @@ static NSArray *g_test_strings;
     void *stringPtr = (__bridge void *)string;
     int expectedLength = (int)string.length;
     int length = sentrycrashobjc_stringLength(stringPtr);
-    XCTAssertEqual(length, expectedLength, @"");
+    XCTAssertEqual(length, expectedLength);
 }
 
 - (void)testCopyStringContents
@@ -180,7 +180,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -193,7 +193,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -206,7 +206,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -219,7 +219,7 @@ static NSArray *g_test_strings;
     char actual[5];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -231,8 +231,8 @@ static NSArray *g_test_strings;
     int expectedLength = 0;
     char actual = expected;
     int copied = sentrycrashobjc_copyStringContents((__bridge void *)string, &actual, 0);
-    XCTAssertEqual(copied, expectedLength, @"");
-    XCTAssertEqual(actual, expected, @"");
+    XCTAssertEqual(copied, expectedLength);
+    XCTAssertEqual(actual, expected);
 }
 
 - (void)testCopyStringContentsUTF16
@@ -243,7 +243,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -256,7 +256,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -269,7 +269,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -282,7 +282,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -295,7 +295,7 @@ static NSArray *g_test_strings;
     char actual[100];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -311,7 +311,7 @@ static NSArray *g_test_strings;
     char actual[2000];
     int copied
         = sentrycrashobjc_copyStringContents((__bridge void *)string, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -326,13 +326,13 @@ static NSArray *g_test_strings;
         NSString *expectedTheRest = [NSString stringWithFormat:@"\"%@\"", string];
         char buffer[100];
         int copied = sentrycrashobjc_getDescription(stringPtr, buffer, sizeof(buffer));
-        XCTAssertTrue(copied > 0, @"");
+        XCTAssertTrue(copied > 0);
         NSString *description = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
         NSArray *components = [self componentsOfComplexDescription:description];
         NSString *className = [components objectAtIndex:0];
         NSString *theRest = [components objectAtIndex:1];
-        XCTAssertEqualObjects(className, expectedClassName, @"");
-        XCTAssertEqualObjects(theRest, expectedTheRest, @"");
+        XCTAssertEqualObjects(className, expectedClassName);
+        XCTAssertEqualObjects(theRest, expectedTheRest);
     }
 }
 
@@ -344,7 +344,7 @@ static NSArray *g_test_strings;
     int expectedLength = (int)string.length;
     char actual[100];
     int copied = sentrycrashobjc_copyURLContents((__bridge void *)URL, actual, sizeof(actual));
-    XCTAssertEqual(copied, expectedLength, @"");
+    XCTAssertEqual(copied, expectedLength);
     int result = strcmp(actual, expected);
     XCTAssertTrue(result == 0, @"String %s did not equal %s", actual, expected);
 }
@@ -405,7 +405,7 @@ static NSArray *g_test_strings;
     NSArray *array = [NSArray array];
     void *arrayPtr = (__bridge void *)array;
     bool valid = sentrycrashobjc_isValidObject(arrayPtr);
-    XCTAssertTrue(valid, @"");
+    XCTAssertTrue(valid);
 }
 
 - (void)testMutableArrayIsValid
@@ -413,7 +413,7 @@ static NSArray *g_test_strings;
     NSMutableArray *array = [NSMutableArray array];
     void *arrayPtr = (__bridge void *)array;
     bool valid = sentrycrashobjc_isValidObject(arrayPtr);
-    XCTAssertTrue(valid, @"");
+    XCTAssertTrue(valid);
 }
 
 - (void)testCFArrayIsValid
@@ -426,7 +426,7 @@ static NSArray *g_test_strings;
     };
     CFArrayRef arrayPtr = CFArrayCreate(NULL, values, 4, NULL);
     bool valid = sentrycrashobjc_isValidObject(arrayPtr);
-    XCTAssertTrue(valid, @"");
+    XCTAssertTrue(valid);
     CFRelease(arrayPtr);
 }
 
@@ -434,7 +434,7 @@ static NSArray *g_test_strings;
 {
     CFMutableArrayRef arrayPtr = CFArrayCreateMutable(NULL, 4, NULL);
     bool valid = sentrycrashobjc_isValidObject(arrayPtr);
-    XCTAssertTrue(valid, @"");
+    XCTAssertTrue(valid);
     CFRelease(arrayPtr);
 }
 
@@ -444,7 +444,7 @@ static NSArray *g_test_strings;
     id value = @"blah";
     CFArrayAppendValue(arrayPtr, (__bridge void *)value);
     bool valid = sentrycrashobjc_isValidObject(arrayPtr);
-    XCTAssertTrue(valid, @"");
+    XCTAssertTrue(valid);
     CFRelease(arrayPtr);
 }
 
@@ -454,7 +454,7 @@ static NSArray *g_test_strings;
     void *arrayPtr = (__bridge void *)array;
     int expectedCount = (int)array.count;
     int count = sentrycrashobjc_arrayCount(arrayPtr);
-    XCTAssertEqual(count, expectedCount, @"");
+    XCTAssertEqual(count, expectedCount);
 }
 
 - (void)testArrayCountEmpty
@@ -462,7 +462,7 @@ static NSArray *g_test_strings;
     NSArray *array = [NSArray array];
     void *arrayPtr = (__bridge void *)array;
     int count = sentrycrashobjc_arrayCount(arrayPtr);
-    XCTAssertEqual(count, 0, @"");
+    XCTAssertEqual(count, 0);
 }
 
 - (void)testArrayDescriptionEmpty
@@ -474,13 +474,13 @@ static NSArray *g_test_strings;
     NSString *expectedTheRest = @"[]";
     char buffer[100];
     int copied = sentrycrashobjc_getDescription(arrayPtr, buffer, sizeof(buffer));
-    XCTAssertTrue(copied > 0, @"");
+    XCTAssertTrue(copied > 0);
     NSString *description = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
     NSArray *components = [self componentsOfComplexDescription:description];
     NSString *className = [components objectAtIndex:0];
     NSString *theRest = [components objectAtIndex:1];
-    XCTAssertEqualObjects(className, expectedClassName, @"");
-    XCTAssertEqualObjects(theRest, expectedTheRest, @"");
+    XCTAssertEqualObjects(className, expectedClassName);
+    XCTAssertEqualObjects(theRest, expectedTheRest);
 }
 
 - (void)testArrayDescription
@@ -492,12 +492,12 @@ static NSArray *g_test_strings;
     NSString* expectedTheRest = @"\"test\"";
     char buffer[100];
     int copied = sentrycrashobjc_getDescription(arrayPtr, buffer, sizeof(buffer));
-    XCTAssertTrue(copied > 0, @"");
+    XCTAssertTrue(copied > 0);
     NSString* description = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
     NSArray* components = [self componentsOfComplexDescription:description];
     NSString* className = [components objectAtIndex:0];
     NSString* theRest = [components objectAtIndex:1];
-    XCTAssertEqualObjects(className, expectedClassName, @"");
+    XCTAssertEqualObjects(className, expectedClassName);
 
     // Remove bounding [ and ]
     theRest = [theRest substringWithRange:NSMakeRange(1, [theRest length]-2)];
@@ -506,8 +506,8 @@ static NSArray *g_test_strings;
     className = [components objectAtIndex:0];
     theRest = [components objectAtIndex:1];
     expectedClassName = [NSString stringWithCString:class_getName([expectedTheRest class]) encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(className, expectedClassName, @"");
-    XCTAssertEqualObjects(theRest, expectedTheRest, @"");
+    XCTAssertEqualObjects(className, expectedClassName);
+    XCTAssertEqualObjects(theRest, expectedTheRest);
 #endif
 }
 
@@ -517,10 +517,10 @@ static NSArray *g_test_strings;
     void *arrayPtr = (__bridge void *)array;
     int expectedCount = (int)array.count;
     int count = sentrycrashobjc_arrayCount(arrayPtr);
-    XCTAssertEqual(count, expectedCount, @"");
+    XCTAssertEqual(count, expectedCount);
     uintptr_t contents[10];
     int copied = sentrycrashobjc_arrayContents(arrayPtr, contents, sizeof(contents));
-    XCTAssertEqual(copied, expectedCount, @"");
+    XCTAssertEqual(copied, expectedCount);
 }
 
 - (void)testCopyArrayContentsMutableEmpty
@@ -529,10 +529,10 @@ static NSArray *g_test_strings;
     void *arrayPtr = (__bridge void *)array;
     int expectedCount = (int)array.count;
     int count = sentrycrashobjc_arrayCount(arrayPtr);
-    XCTAssertEqual(count, expectedCount, @"");
+    XCTAssertEqual(count, expectedCount);
     uintptr_t contents[10];
     int copied = sentrycrashobjc_arrayContents(arrayPtr, contents, sizeof(contents));
-    XCTAssertEqual(copied, expectedCount, @"");
+    XCTAssertEqual(copied, expectedCount);
 }
 
 - (void)testCopyArrayContentsCFArrayEmpty
@@ -541,10 +541,10 @@ static NSArray *g_test_strings;
     NSArray *array = (__bridge NSArray *)arrayPtr;
     int expectedCount = (int)array.count;
     int count = sentrycrashobjc_arrayCount(arrayPtr);
-    XCTAssertEqual(count, expectedCount, @"");
+    XCTAssertEqual(count, expectedCount);
     uintptr_t contents[10];
     int copied = sentrycrashobjc_arrayContents(arrayPtr, contents, sizeof(contents));
-    XCTAssertEqual(copied, expectedCount, @"");
+    XCTAssertEqual(copied, expectedCount);
     CFRelease(arrayPtr);
 }
 
@@ -563,11 +563,11 @@ static NSArray *g_test_strings;
                                                      encoding:NSUTF8StringEncoding];
     char buffer[100];
     int copied = sentrycrashobjc_getDescription(instancePtr, buffer, sizeof(buffer));
-    XCTAssertTrue(copied > 0, @"");
+    XCTAssertTrue(copied > 0);
     NSString *description = [NSString stringWithCString:buffer encoding:NSUTF8StringEncoding];
     NSArray *components = [self componentsOfBasicDescription:description];
     NSString *className = [components objectAtIndex:0];
-    XCTAssertEqualObjects(className, expectedClassName, @"");
+    XCTAssertEqualObjects(className, expectedClassName);
 }
 
 - (void)testSuperclass
@@ -575,31 +575,31 @@ static NSArray *g_test_strings;
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     const void *expected = (__bridge void *)[NSObject class];
     const void *superclass = sentrycrashobjc_superClass(classPtr);
-    XCTAssertEqual(superclass, expected, @"");
+    XCTAssertEqual(superclass, expected);
 }
 - (void)testNotRootClass
 {
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     bool isRootClass = sentrycrashobjc_isRootClass(classPtr);
-    XCTAssertFalse(isRootClass, @"");
+    XCTAssertFalse(isRootClass);
 }
 
 - (void)testIsClassNamed
 {
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     bool isClassNamed = sentrycrashobjc_isClassNamed(classPtr, "SomeObjCClass");
-    XCTAssertTrue(isClassNamed, @"");
+    XCTAssertTrue(isClassNamed);
     isClassNamed = sentrycrashobjc_isClassNamed(classPtr, "NSObject");
-    XCTAssertFalse(isClassNamed, @"");
+    XCTAssertFalse(isClassNamed);
     isClassNamed = sentrycrashobjc_isClassNamed(classPtr, NULL);
-    XCTAssertFalse(isClassNamed, @"");
+    XCTAssertFalse(isClassNamed);
 }
 
 - (void)testIvarCount
 {
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     int ivarCount = sentrycrashobjc_ivarCount(classPtr);
-    XCTAssertEqual(ivarCount, 2, @"");
+    XCTAssertEqual(ivarCount, 2);
 }
 
 - (void)testIvarList
@@ -614,15 +614,15 @@ static NSArray *g_test_strings;
 
     int compare;
 
-    XCTAssertEqual(ivarCount, 2, @"");
+    XCTAssertEqual(ivarCount, 2);
     compare = strcmp(ivars[0].name, expectedIvar1Name);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
     compare = strcmp(ivars[0].type, expectedIvar1Type);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
     compare = strcmp(ivars[1].name, expectedIvar2Name);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
     compare = strcmp(ivars[1].type, expectedIvar2Type);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
 }
 
 - (void)testIvarListTruncated
@@ -635,18 +635,18 @@ static NSArray *g_test_strings;
 
     int compare;
 
-    XCTAssertEqual(ivarCount, 1, @"");
+    XCTAssertEqual(ivarCount, 1);
     compare = strcmp(ivars[0].name, expectedIvar1Name);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
     compare = strcmp(ivars[0].type, expectedIvar1Type);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
 }
 
 - (void)testIvarListNull
 {
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     int ivarCount = sentrycrashobjc_ivarList(classPtr, NULL, 10);
-    XCTAssertEqual(ivarCount, 0, @"");
+    XCTAssertEqual(ivarCount, 0);
 }
 
 - (void)testIvarNamed
@@ -654,13 +654,13 @@ static NSArray *g_test_strings;
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     SentryCrashObjCIvar ivar;
     bool found = sentrycrashobjc_ivarNamed(classPtr, "someIvar", &ivar);
-    XCTAssertTrue(found, @"");
+    XCTAssertTrue(found);
     const char *expectedIvarName = "someIvar";
     const char *expectedIvarType = "i";
     int compare = strcmp(ivar.name, expectedIvarName);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
     compare = strcmp(ivar.type, expectedIvarType);
-    XCTAssertEqual(compare, 0, @"");
+    XCTAssertEqual(compare, 0);
 }
 
 - (void)testIvarNamedNotFound
@@ -668,10 +668,10 @@ static NSArray *g_test_strings;
     void *classPtr = (__bridge void *)[SomeObjCClass class];
     SentryCrashObjCIvar ivar;
     bool found = sentrycrashobjc_ivarNamed(classPtr, "blahblahh", &ivar);
-    XCTAssertFalse(found, @"");
+    XCTAssertFalse(found);
 
     found = sentrycrashobjc_ivarNamed(classPtr, NULL, &ivar);
-    XCTAssertFalse(found, @"");
+    XCTAssertFalse(found);
 }
 
 - (void)testIvarValue
@@ -682,8 +682,8 @@ static NSArray *g_test_strings;
     void *objectPtr = (__bridge void *)object;
     int value = 0;
     bool success = sentrycrashobjc_ivarValue(objectPtr, 0, &value);
-    XCTAssertTrue(success, @"");
-    XCTAssertEqual(value, expectedValue, @"");
+    XCTAssertTrue(success);
+    XCTAssertEqual(value, expectedValue);
 }
 
 - (void)testIvarValueOutOfRange
@@ -692,7 +692,7 @@ static NSArray *g_test_strings;
     void *objectPtr = (__bridge void *)object;
     int value = 0;
     bool success = sentrycrashobjc_ivarValue(objectPtr, 100, &value);
-    XCTAssertFalse(success, @"");
+    XCTAssertFalse(success);
 }
 
 - (void)testUnknownObjectIsValid
@@ -700,7 +700,7 @@ static NSArray *g_test_strings;
     SomeObjCClass *object = [[SomeObjCClass alloc] init];
     void *objectPtr = (__bridge void *)object;
     bool success = sentrycrashobjc_isValidObject(objectPtr);
-    XCTAssertTrue(success, @"");
+    XCTAssertTrue(success);
 }
 
 @end

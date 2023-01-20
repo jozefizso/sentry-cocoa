@@ -29,9 +29,9 @@
     NSError *error = nil;
     NSData *original = [NSData data];
     NSData *compressed = [original sentry_gzippedWithCompressionLevel:-1 error:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 
-    XCTAssertEqualObjects(compressed, original, @"");
+    XCTAssertEqualObjects(compressed, original);
 }
 
 - (void)testCompressNilError
@@ -53,7 +53,7 @@
     NSData *original = [NSData data];
     NSData *compressed = [original sentry_gzippedWithCompressionLevel:-1 error:nil];
 
-    XCTAssertEqualObjects(compressed, original, @"");
+    XCTAssertEqualObjects(compressed, original);
 }
 
 - (void)testBogusParamerte

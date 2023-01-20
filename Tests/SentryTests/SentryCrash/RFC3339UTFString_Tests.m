@@ -65,7 +65,7 @@ stringFromDate(NSDate *date)
     NSString *expected = @"2000-01-02T03:04:05Z";
     NSString *actual = stringFromDate(date);
 
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertEqualObjects(actual, expected);
 }
 
 @end

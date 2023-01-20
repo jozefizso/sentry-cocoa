@@ -38,8 +38,8 @@
     NSString *expected = @"Expected";
     SentryCrashCString *actual = [SentryCrashCString stringWithString:expected];
     BOOL matches = strcmp([expected cStringUsingEncoding:NSUTF8StringEncoding], actual.bytes) == 0;
-    XCTAssertTrue(matches, @"");
-    XCTAssertEqual(actual.length, expected.length, @"");
+    XCTAssertTrue(matches);
+    XCTAssertEqual(actual.length, expected.length);
 }
 
 - (void)testCString
@@ -48,8 +48,8 @@
     NSUInteger expectedLength = strlen(expected);
     SentryCrashCString *actual = [SentryCrashCString stringWithCString:expected];
     BOOL matches = strcmp(expected, actual.bytes) == 0;
-    XCTAssertTrue(matches, @"");
-    XCTAssertEqual(actual.length, expectedLength, @"");
+    XCTAssertTrue(matches);
+    XCTAssertEqual(actual.length, expectedLength);
 }
 
 - (void)testNSData
@@ -59,8 +59,8 @@
     NSData *source = [NSData dataWithBytes:expected length:expectedLength];
     SentryCrashCString *actual = [SentryCrashCString stringWithData:source];
     BOOL matches = strcmp(expected, actual.bytes) == 0;
-    XCTAssertTrue(matches, @"");
-    XCTAssertEqual(actual.length, expectedLength, @"");
+    XCTAssertTrue(matches);
+    XCTAssertEqual(actual.length, expectedLength);
 }
 
 - (void)testData
@@ -69,8 +69,8 @@
     NSUInteger expectedLength = strlen(expected);
     SentryCrashCString *actual = [SentryCrashCString stringWithData:expected length:expectedLength];
     BOOL matches = strcmp(expected, actual.bytes) == 0;
-    XCTAssertTrue(matches, @"");
-    XCTAssertEqual(actual.length, expectedLength, @"");
+    XCTAssertTrue(matches);
+    XCTAssertEqual(actual.length, expectedLength);
 }
 
 @end

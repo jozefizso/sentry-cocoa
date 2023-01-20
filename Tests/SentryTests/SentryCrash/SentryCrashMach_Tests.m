@@ -40,13 +40,13 @@
     NSString *expected = @"EXC_ARITHMETIC";
     NSString *actual = [NSString stringWithCString:sentrycrashmach_exceptionName(EXC_ARITHMETIC)
                                           encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testVeryHighExceptionName
 {
     const char *result = sentrycrashmach_exceptionName(100000);
-    XCTAssertTrue(result == NULL, @"");
+    XCTAssertTrue(result == NULL);
 }
 
 - (void)testKernReturnCodeName
@@ -55,13 +55,13 @@
     NSString *actual =
         [NSString stringWithCString:sentrycrashmach_kernelReturnCodeName(KERN_FAILURE)
                            encoding:NSUTF8StringEncoding];
-    XCTAssertEqualObjects(actual, expected, @"");
+    XCTAssertEqualObjects(actual, expected);
 }
 
 - (void)testVeryHighKernReturnCodeName
 {
     const char *result = sentrycrashmach_kernelReturnCodeName(100000);
-    XCTAssertTrue(result == NULL, @"");
+    XCTAssertTrue(result == NULL);
 }
 
 #define EXC_UNIX_BAD_SYSCALL 0x10000 /* SIGSYS */
@@ -102,13 +102,13 @@
 - (void)assertMachException:(int)exception code:(int)code matchesSignal:(int)signal
 {
     int result = sentrycrashmach_signalForMachException(exception, code);
-    XCTAssertEqual(result, signal, @"");
+    XCTAssertEqual(result, signal);
 }
 
 - (void)assertSignal:(int)signal matchesMachException:(int)exception
 {
     int result = sentrycrashmach_machExceptionForSignal(signal);
-    XCTAssertEqual(result, exception, @"");
+    XCTAssertEqual(result, exception);
 }
 
 @end

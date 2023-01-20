@@ -41,9 +41,9 @@
     NSString *expectedDomain = @"Domain";
     NSInteger expectedCode = 10;
     NSString *expectedDescription = @"A description 1";
-    XCTAssertEqualObjects(error.domain, expectedDomain, @"");
-    XCTAssertEqual(error.code, expectedCode, @"");
-    XCTAssertEqualObjects(error.localizedDescription, expectedDescription, @"");
+    XCTAssertEqualObjects(error.domain, expectedDomain);
+    XCTAssertEqual(error.code, expectedCode);
+    XCTAssertEqualObjects(error.localizedDescription, expectedDescription);
 }
 
 - (void)testSentryFillError
@@ -56,9 +56,9 @@
     NSString *expectedDomain = @"Domain";
     NSInteger expectedCode = 10;
     NSString *expectedDescription = @"A description 1";
-    XCTAssertEqualObjects(error.domain, expectedDomain, @"");
-    XCTAssertEqual(error.code, expectedCode, @"");
-    XCTAssertEqualObjects(error.localizedDescription, expectedDescription, @"");
+    XCTAssertEqualObjects(error.domain, expectedDomain);
+    XCTAssertEqual(error.code, expectedCode);
+    XCTAssertEqualObjects(error.localizedDescription, expectedDescription);
 }
 
 - (void)testSentryFillErrorNil
@@ -69,9 +69,9 @@
 - (void)testSentryClearError
 {
     NSError *error = [NSError sentryErrorWithDomain:@"" code:1 description:@""];
-    XCTAssertNotNil(error, @"");
+    XCTAssertNotNil(error);
     [NSError sentryClearError:&error];
-    XCTAssertNil(error, @"");
+    XCTAssertNil(error);
 }
 
 - (void)testSentryClearErrorNil
