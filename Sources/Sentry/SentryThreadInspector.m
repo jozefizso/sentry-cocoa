@@ -1,4 +1,5 @@
 #import "SentryThreadInspector.h"
+#include "SentryCrashMonitor_MachException.h"
 #import "SentryCrashStackCursor.h"
 #include "SentryCrashStackCursor_MachineContext.h"
 #include "SentryCrashSymbolicator.h"
@@ -26,9 +27,9 @@ typedef struct {
 // calling into not async-signal-safe code while there are suspended threads.
 unsigned int
 getStackEntriesFromThread(SentryCrashThread thread, struct SentryCrashMachineContext *context,
-    SentryCrashStackEntry *buffer, unsigned int maxEntries)
+    SentryCrashStackEntry *buffer, int maxEntries)
 {
-    sentrycrashmc_getContextForThread(thread, context, NO);
+    sentrycrashmc_getContextForThread(thread, context, false);
     SentryCrashStackCursor stackCursor;
 
     sentrycrashsc_initWithMachineContext(&stackCursor, MAX_STACKTRACE_LENGTH, context);
@@ -113,36 +114,62 @@ getStackEntriesFromThread(SentryCrashThread thread, struct SentryCrashMachineCon
     NSMutableArray<SentryThread *> *threads = [NSMutableArray new];
 
     @synchronized(self) {
-        SentryCrashMC_NEW_CONTEXT(context);
+        //        SentryCrashMC_NEW_CONTEXT(context);
         SentryCrashThread currentThread = sentrycrashthread_self();
 
-        thread_act_array_t suspendedThreads = NULL;
+        thread_t *suspendedThreads = NULL;
         mach_msg_type_number_t numSuspendedThreads = 0;
 
-        sentrycrashmc_suspendEnvironment(&suspendedThreads, &numSuspendedThreads);
+        bool result = sentrycrashmc_suspendEnvironment(&suspendedThreads, &numSuspendedThreads);
+        SentryThreadInfo threadsInfos[200];
+
+        if (result == false) {
+            return nil;
+        }
+
         // DANGER: Do not try to allocate memory in the heap or call Objective-C code in this
         // section Doing so when the threads are suspended may lead to deadlocks or crashes.
 
-        SentryThreadInfo threadsInfos[numSuspendedThreads];
-
         for (int i = 0; i < numSuspendedThreads; i++) {
-            if (suspendedThreads[i] != currentThread) {
-                int numberOfEntries = getStackEntriesFromThread(suspendedThreads[i], context,
-                    threadsInfos[i].stackEntries, MAX_STACKTRACE_LENGTH);
-                threadsInfos[i].stackLength = numberOfEntries;
-            } else {
-                // We can't use 'getStackEntriesFromThread' to retrieve stack frames from the
-                // current thread. We are using the stackTraceBuilder to retrieve this information
-                // later.
+            thread_t thread = suspendedThreads[i];
+
+            if (thread == currentThread) {
                 threadsInfos[i].stackLength = 0;
+                continue;
             }
-            threadsInfos[i].thread = suspendedThreads[i];
+
+            //            if (sentrycrashcm_isReservedThread(thread)) {
+            //                continue;
+            //            }
+
+            if (pthread_from_mach_thread_np(thread) == NULL) {
+                //                suspendedThreads[i] = 0;
+                continue;
+            }
+
+            kern_return_t kr = thread_suspend(thread);
+            if (kr != KERN_SUCCESS) {
+                continue;
+            }
+
+            if (thread != currentThread) {
+                //                unsigned int numberOfEntries = getStackEntriesFromThread(thread,
+                //                context,
+                //                    threadsInfos[i].stackEntries, MAX_STACKTRACE_LENGTH);
+                //                threadsInfos[i].stackLength = numberOfEntries;
+            } else {
+                //                 We can't use 'getStackEntriesFromThread' to retrieve stack frames
+                //                 from the current thread. We are using the stackTraceBuilder to
+                //                 retrieve this information later.
+                //                threadsInfos[i].stackLength = 0;
+            }
+            //            threadsInfos[i].thread = thread;
         }
 
         sentrycrashmc_resumeEnvironment(suspendedThreads, numSuspendedThreads);
         // DANGER END: You may call Objective-C code again or allocate memory.
 
-        for (int i = 0; i < numSuspendedThreads; i++) {
+        for (int i = 0; i < 0; i++) {
             SentryThread *sentryThread = [[SentryThread alloc] initWithThreadId:@(i)];
 
             sentryThread.isMain = [NSNumber numberWithBool:i == 0];

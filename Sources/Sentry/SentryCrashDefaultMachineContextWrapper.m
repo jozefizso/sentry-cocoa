@@ -27,7 +27,7 @@ SentryCrashThread mainThreadID;
 
 - (void)fillContextForCurrentThread:(struct SentryCrashMachineContext *)context
 {
-    sentrycrashmc_getContextForThread(sentrycrashthread_self(), context, YES);
+    sentrycrashmc_getContextForThread(sentrycrashthread_self(), context, true);
 }
 
 - (int)getThreadCount:(struct SentryCrashMachineContext *)context

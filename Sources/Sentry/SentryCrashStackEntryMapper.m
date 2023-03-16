@@ -27,26 +27,26 @@ SentryCrashStackEntryMapper ()
 {
     SentryFrame *frame = [[SentryFrame alloc] init];
 
-    NSNumber *symbolAddress = @(stackEntry.symbolAddress);
-    frame.symbolAddress = sentry_formatHexAddress(symbolAddress);
-
-    NSNumber *instructionAddress = @(stackEntry.address);
-    frame.instructionAddress = sentry_formatHexAddress(instructionAddress);
-
-    NSNumber *imageAddress = @(stackEntry.imageAddress);
-    frame.imageAddress = sentry_formatHexAddress(imageAddress);
-
-    if (stackEntry.symbolName != NULL) {
-        frame.function = [NSString stringWithCString:stackEntry.symbolName
-                                            encoding:NSUTF8StringEncoding];
-    }
-
-    if (stackEntry.imageName != NULL) {
-        NSString *imageName = [NSString stringWithCString:stackEntry.imageName
-                                                 encoding:NSUTF8StringEncoding];
-        frame.package = imageName;
-        frame.inApp = @([self.inAppLogic isInApp:imageName]);
-    }
+    //    NSNumber *symbolAddress = @(stackEntry.symbolAddress);
+    //    frame.symbolAddress = sentry_formatHexAddress(symbolAddress);
+    //
+    //    NSNumber *instructionAddress = @(stackEntry.address);
+    //    frame.instructionAddress = sentry_formatHexAddress(instructionAddress);
+    //
+    //    NSNumber *imageAddress = @(stackEntry.imageAddress);
+    //    frame.imageAddress = sentry_formatHexAddress(imageAddress);
+    //
+    //    if (stackEntry.symbolName != NULL) {
+    //        frame.function = [NSString stringWithCString:stackEntry.symbolName
+    //                                            encoding:NSUTF8StringEncoding];
+    //    }
+    //
+    //    if (stackEntry.imageName != NULL) {
+    //        NSString *imageName = [NSString stringWithCString:stackEntry.imageName
+    //                                                 encoding:NSUTF8StringEncoding];
+    //        frame.package = imageName;
+    //        frame.inApp = @([self.inAppLogic isInApp:imageName]);
+    //    }
 
     return frame;
 }

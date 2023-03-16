@@ -40,6 +40,7 @@
 #    include <mach/mach.h>
 #    include <pthread.h>
 #    include <signal.h>
+#    include <unistd.h>
 
 // ============================================================================
 #    pragma mark - Constants -

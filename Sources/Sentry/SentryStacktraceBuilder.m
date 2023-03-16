@@ -61,19 +61,19 @@ SentryStacktraceBuilder ()
                                                amount:(unsigned int)amount
 {
     NSMutableArray<SentryFrame *> *frames = [[NSMutableArray alloc] initWithCapacity:amount];
-    SentryFrame *frame = nil;
-    for (int i = 0; i < amount; i++) {
-        SentryCrashStackEntry stackEntry = entries[i];
-        if (stackEntry.address == SentryCrashSC_ASYNC_MARKER) {
-            if (frame != nil) {
-                frame.stackStart = @(YES);
-            }
-            // skip the marker frame
-            continue;
-        }
-        frame = [self.crashStackEntryMapper sentryCrashStackEntryToSentryFrame:stackEntry];
-        [frames addObject:frame];
-    }
+    //    SentryFrame *frame = nil;
+    //    for (int i = 0; i < amount; i++) {
+    //        SentryCrashStackEntry stackEntry = entries[i];
+    //        if (stackEntry.address == SentryCrashSC_ASYNC_MARKER) {
+    //            if (frame != nil) {
+    //                frame.stackStart = @(YES);
+    //            }
+    //            // skip the marker frame
+    //            continue;
+    //        }
+    //        frame = [self.crashStackEntryMapper sentryCrashStackEntryToSentryFrame:stackEntry];
+    //        [frames addObject:frame];
+    //    }
 
     NSArray<SentryFrame *> *framesCleared = [SentryFrameRemover removeNonSdkFrames:frames];
 
@@ -86,7 +86,7 @@ SentryStacktraceBuilder ()
 - (SentryStacktrace *)buildStacktraceForThread:(SentryCrashThread)thread
                                        context:(struct SentryCrashMachineContext *)context
 {
-    sentrycrashmc_getContextForThread(thread, context, NO);
+    sentrycrashmc_getContextForThread(thread, context, false);
     SentryCrashStackCursor stackCursor;
     sentrycrashsc_initWithMachineContext(&stackCursor, MAX_STACKTRACE_LENGTH, context);
 

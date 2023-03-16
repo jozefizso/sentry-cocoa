@@ -33,6 +33,7 @@
 #include "SentryCrashSystemCapabilities.h"
 
 #include <mach/mach.h>
+#include <pthread.h>
 
 // #define SentryCrashLogger_LocalLevel TRACE
 #include "SentryCrashLogger.h"
@@ -143,7 +144,7 @@ sentrycrashmc_getContextForSignal(
     return true;
 }
 
-void
+bool
 sentrycrashmc_suspendEnvironment(
     thread_act_array_t *suspendedThreads, mach_msg_type_number_t *numSuspendedThreads)
 {
@@ -151,28 +152,43 @@ sentrycrashmc_suspendEnvironment(
     SentryCrashLOG_DEBUG("Suspending environment.");
     kern_return_t kr;
     const task_t thisTask = mach_task_self();
-    const thread_t thisThread = (thread_t)sentrycrashthread_self();
+    //    const thread_t thisThread = (thread_t)sentrycrashthread_self();
 
     if ((kr = task_threads(thisTask, suspendedThreads, numSuspendedThreads)) != KERN_SUCCESS) {
         SentryCrashLOG_ERROR("task_threads: %s", mach_error_string(kr));
-        return;
+        return false;
     }
 
+    bool result = true;
     for (mach_msg_type_number_t i = 0; i < *numSuspendedThreads; i++) {
         thread_t thread = (*suspendedThreads)[i];
-        if (thread != thisThread && !sentrycrashcm_isReservedThread(thread)) {
-            if ((kr = thread_suspend(thread)) != KERN_SUCCESS) {
-                // Record the error and keep going.
-                SentryCrashLOG_ERROR("thread_suspend (%08x): %s", thread, mach_error_string(kr));
-            }
+        if (thread == thisTask) {
+            mach_port_deallocate(mach_task_self(), thread);
+            continue;
         }
+        //        if (sentrycrashcm_isReservedThread(thread)) {
+        //            continue;
+        //        }
+        //
+        //        if(pthread_from_mach_thread_np(thread) == NULL) {
+        //            suspendedThreads[i] = 0;
+        //            continue;
+        //        }
+        //
+        //        kr = thread_suspend(thread);
+        //        if (kr != KERN_SUCCESS) {
+        //            // Record the error and keep going.
+        //            SentryCrashLOG_ERROR("thread_suspend (%08x): %s", thread,
+        //            mach_error_string(kr)); suspendedThreads[i] = 0; result &= false;
+        //        }
     }
 
     SentryCrashLOG_DEBUG("Suspend complete.");
+    return result;
 #endif
 }
 
-void
+bool
 sentrycrashmc_resumeEnvironment(
     __unused thread_act_array_t threads, __unused mach_msg_type_number_t numThreads)
 {
@@ -184,15 +200,17 @@ sentrycrashmc_resumeEnvironment(
 
     if (threads == NULL || numThreads == 0) {
         SentryCrashLOG_ERROR("we should call sentrycrashmc_suspendEnvironment() first");
-        return;
+        return false;
     }
 
+    bool result = true;
     for (mach_msg_type_number_t i = 0; i < numThreads; i++) {
         thread_t thread = threads[i];
         if (thread != thisThread && !sentrycrashcm_isReservedThread(thread)) {
             if ((kr = thread_resume(thread)) != KERN_SUCCESS) {
                 // Record the error and keep going.
                 SentryCrashLOG_ERROR("thread_resume (%08x): %s", thread, mach_error_string(kr));
+                result &= false;
             }
         }
     }
@@ -203,6 +221,7 @@ sentrycrashmc_resumeEnvironment(
     vm_deallocate(thisTask, (vm_address_t)threads, sizeof(thread_t) * numThreads);
 
     SentryCrashLOG_DEBUG("Resume complete.");
+    return result;
 #endif
 }
 
