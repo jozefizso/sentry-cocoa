@@ -1,12 +1,8 @@
 #import "SentryBreadcrumbTracker.h"
 #import "SentryBreadcrumb.h"
 #import "SentryBreadcrumbDelegate.h"
-#import "SentryClient.h"
 #import "SentryDefines.h"
-#import "SentryHub.h"
 #import "SentryLog.h"
-#import "SentrySDK+Private.h"
-#import "SentryScope.h"
 #import "SentrySwift.h"
 #import "SentrySwizzle.h"
 #import "SentrySwizzleWrapper.h"
@@ -192,33 +188,36 @@ SentryBreadcrumbTracker ()
 
 - (void)swizzleViewDidAppear
 {
-#if SENTRY_HAS_UIKIT
-
-    // SentrySwizzleInstanceMethod declaration shadows a local variable. The swizzling is working
-    // fine and we accept this warning.
-#    pragma clang diagnostic push
-#    pragma clang diagnostic ignored "-Wshadow"
-
-    static const void *swizzleViewDidAppearKey = &swizzleViewDidAppearKey;
-    SEL selector = NSSelectorFromString(@"viewDidAppear:");
-    SentrySwizzleInstanceMethod(UIViewController.class, selector, SentrySWReturnType(void),
-        SentrySWArguments(BOOL animated), SentrySWReplacement({
-            if (nil != [SentrySDK.currentHub getClient]) {
-                SentryBreadcrumb *crumb = [[SentryBreadcrumb alloc] initWithLevel:kSentryLevelInfo
-                                                                         category:@"ui.lifecycle"];
-                crumb.type = @"navigation";
-                crumb.data = [SentryBreadcrumbTracker fetchInfoAboutViewController:self];
-
-                // Adding crumb via the SDK calls SentryBeforeBreadcrumbCallback
-                [SentrySDK addBreadcrumb:crumb];
-            }
-            SentrySWCallOriginal(animated);
-        }),
-        SentrySwizzleModeOncePerClassAndSuperclasses, swizzleViewDidAppearKey);
-#    pragma clang diagnostic pop
-#else
-    SENTRY_LOG_DEBUG(@"NO UIKit -> [SentryBreadcrumbTracker swizzleViewDidAppear] does nothing.");
-#endif
+    // #if SENTRY_HAS_UIKIT
+    //
+    //     // SentrySwizzleInstanceMethod declaration shadows a local variable. The swizzling is
+    //     working
+    //     // fine and we accept this warning.
+    // #    pragma clang diagnostic push
+    // #    pragma clang diagnostic ignored "-Wshadow"
+    //
+    //     static const void *swizzleViewDidAppearKey = &swizzleViewDidAppearKey;
+    //     SEL selector = NSSelectorFromString(@"viewDidAppear:");
+    //     SentrySwizzleInstanceMethod(UIViewController.class, selector, SentrySWReturnType(void),
+    //         SentrySWArguments(BOOL animated), SentrySWReplacement({
+    //             if (nil != [SentrySDK.currentHub getClient]) {
+    //                 SentryBreadcrumb *crumb = [[SentryBreadcrumb alloc]
+    //                 initWithLevel:kSentryLevelInfo
+    //                                                                          category:@"ui.lifecycle"];
+    //                 crumb.type = @"navigation";
+    //                 crumb.data = [SentryBreadcrumbTracker fetchInfoAboutViewController:self];
+    //
+    //                 // Adding crumb via the SDK calls SentryBeforeBreadcrumbCallback
+    //                 [SentrySDK addBreadcrumb:crumb];
+    //             }
+    //             SentrySWCallOriginal(animated);
+    //         }),
+    //         SentrySwizzleModeOncePerClassAndSuperclasses, swizzleViewDidAppearKey);
+    // #    pragma clang diagnostic pop
+    // #else
+    //     SENTRY_LOG_DEBUG(@"NO UIKit -> [SentryBreadcrumbTracker swizzleViewDidAppear] does
+    //     nothing.");
+    // #endif
 }
 
 #if SENTRY_HAS_UIKIT
