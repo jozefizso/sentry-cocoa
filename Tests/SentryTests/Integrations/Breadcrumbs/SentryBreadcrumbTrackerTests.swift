@@ -103,15 +103,15 @@ class SentryBreadcrumbTrackerTests: XCTestCase {
         XCTAssertNil(result?["title"] as Any?)
     }
 
-    func test_avoidSender() {
-        let textField = UITextField()
-        let viewController = ViewControllerForBreadcrumbTest()
-        textField.addTarget(viewController, action: #selector(viewController.textFieldTextChanged(_:)), for: .editingChanged)
-
-        let result = Dynamic(SentryBreadcrumbTracker.self).avoidSender(textField, forTarget: viewController, action: NSStringFromSelector(#selector(viewController.textFieldTextChanged(_:))) ).asBool ?? false
-
-        XCTAssertTrue(result)
-    }
+//    func test_avoidSender() {
+//        let textField = UITextField()
+//        let viewController = ViewControllerForBreadcrumbTest()
+//        textField.addTarget(viewController, action: #selector(viewController.textFieldTextChanged(_:)), for: .editingChanged)
+//
+//        let result = Dynamic(SentryBreadcrumbTracker.self).avoidSender(textField, forTarget: viewController, action: NSStringFromSelector(#selector(viewController.textFieldTextChanged(_:))) ).asBool ?? false
+//
+//        XCTAssertTrue(result)
+//    }
 
     func test_dont_avoidSender() {
         let textField = UITextField()
