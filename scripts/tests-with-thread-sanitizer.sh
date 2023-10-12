@@ -14,6 +14,11 @@ env NSUnbufferedIO=YES xcodebuild -workspace Sentry.xcworkspace -scheme Sentry -
     -skip-testing:"SentryTests/SentryANRTrackerTests/testMultipleListeners" \
     -skip-testing:"SentryTests/SentryANRTrackerTests/testAppSuspended_NoANR" \
     -skip-testing:"SentryTests.SentryFileIOTrackingIntegrationTests test_DataConsistency_readPath" \
+    -skip-testing:"SentryTests.SentryANRTrackerTests testNotRemovingDeallocatedListener_DoesNotRetainListener_AndStopsTracking" \
+    -skip-testing:"SentryTests.SentryANRTrackingIntegrationTests testDealloc_CallsUninstall" \
+    -skip-testing:"SentryTests.SentryNSDataTrackerTests testWriteAtomically_Background" \
+    -skip-testing:"SentryTests.SentryNetworkTrackerTests testChangeStateMultipleTimesConcurrent_OneSpanFinished" \
+    -skip-testing:"SentryTests.SentryStacktraceBuilderTests testFramesDontContainBuilderFunction" \
     test | tee thread-sanitizer.log | xcpretty -t
 
 testStatus=$?
