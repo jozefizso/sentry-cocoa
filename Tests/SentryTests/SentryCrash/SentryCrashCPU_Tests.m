@@ -40,16 +40,21 @@
 
 - (void)testCPUState
 {
+    NSObject *notificationObject = [[NSObject alloc] init];
     TestThread *thread = [[TestThread alloc] init];
+    thread.notificationObject = notificationObject;
     [thread start];
 
     XCTestExpectation *exp = [self expectationWithDescription:@"thread started"];
     [NSNotificationCenter.defaultCenter
         addObserverForName:@"io.sentry.test.TestThread.main"
-                    object:nil
+                    object:notificationObject
                      queue:nil
                 usingBlock:^(NSNotification *_Nonnull __unused notification) {
-                    [NSNotificationCenter.defaultCenter removeObserver:self];
+                    [NSNotificationCenter.defaultCenter
+                        removeObserver:self
+                                  name:@"io.sentry.test.TestThread.main"
+                                object:notificationObject];
                     [exp fulfill];
                 }];
     [self waitForExpectationsWithTimeout:1 handler:nil];

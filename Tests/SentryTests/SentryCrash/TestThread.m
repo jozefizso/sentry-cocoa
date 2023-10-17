@@ -36,7 +36,7 @@
 {
     self.thread = (thread_t)sentrycrashthread_self();
     [NSNotificationCenter.defaultCenter postNotificationName:@"io.sentry.test.TestThread.main"
-                                                      object:nil];
+                                                      object:self.notificationObject];
     while (!self.isCancelled) {
         [[self class] sleepForTimeInterval:0.1];
     }
