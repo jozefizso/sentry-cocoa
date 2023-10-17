@@ -42,7 +42,18 @@
 {
     TestThread *thread = [[TestThread alloc] init];
     [thread start];
-    [NSThread sleepForTimeInterval:0.1];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"thread started"];
+    [NSNotificationCenter.defaultCenter
+        addObserverForName:@"io.sentry.test.TestThread.main"
+                    object:nil
+                     queue:nil
+                usingBlock:^(NSNotification *_Nonnull __unused notification) {
+                    [NSNotificationCenter.defaultCenter removeObserver:self];
+                    [exp fulfill];
+                }];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+
     kern_return_t kr;
     kr = thread_suspend(thread.thread);
     XCTAssertTrue(kr == KERN_SUCCESS, @"");
