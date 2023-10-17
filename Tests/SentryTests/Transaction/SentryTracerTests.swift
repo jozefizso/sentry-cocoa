@@ -467,7 +467,10 @@ class SentryTracerTests: XCTestCase {
         XCTAssertEqual(expectedEndTimestamp, sut.timestamp)
     }
     
-    func testIdleTimeout_TracerDeallocated() {
+    func testIdleTimeout_TracerDeallocated() throws {
+        if threadSanitizerIsPresent() {
+            throw XCTSkip("doesn't currently work with TSAN enabled. the tracer instance remains retained by something in the TSAN dylib, and we cannot debug the memory graph with TSAN attached to see what is retaining it. it's likely out of our control.")
+        }
         // Interact with sut in extra function so ARC deallocates it
         func getSut() {
             let sut = fixture.getSut(idleTimeout: fixture.idleTimeout, dispatchQueueWrapper: fixture.dispatchQueue)
@@ -477,6 +480,7 @@ class SentryTracerTests: XCTestCase {
         
         getSut()
             
+        // dispatch the idle timeout block manually
         for dispatchAfterBlock in fixture.dispatchQueue.dispatchAfterInvocations.invocations {
             dispatchAfterBlock.block()
         }
