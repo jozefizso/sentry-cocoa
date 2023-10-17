@@ -165,8 +165,8 @@ SentryANRTracker ()
     @synchronized(self.listeners) {
         [self.listeners addObject:listener];
 
-        if (self.listeners.count > 0 && state == kSentryANRTrackerNotRunning) {
-            @synchronized(threadLock) {
+        @synchronized(threadLock) {
+            if (self.listeners.count > 0 && state == kSentryANRTrackerNotRunning) {
                 if (state == kSentryANRTrackerNotRunning) {
                     state = kSentryANRTrackerStarting;
                     [NSThread detachNewThreadSelector:@selector(detectANRs)
