@@ -19,6 +19,7 @@
 #    import "SentryUIViewControllerPerformanceTracker.h"
 #    import "SentryUIViewControllerSwizzling+Test.h"
 #    import "SentryUIViewControllerSwizzling.h"
+#    import "UIViewController+Sentry.h"
 #endif // SENTRY_HAS_UIKIT
 
 #if SENTRY_TARGET_PROFILING_SUPPORTED
@@ -181,6 +182,7 @@
 #import "SentryThreadWrapper.h"
 #import "SentryTime.h"
 #import "SentryTraceContext.h"
+#import "SentryTracer+Private.h"
 #import "SentryTracer+Test.h"
 #import "SentryTransaction.h"
 #import "SentryTransactionContext+Private.h"
@@ -198,8 +200,6 @@
 #import "TestSentryCrashWrapper.h"
 #import "TestSentrySpan.h"
 #import "TestUrlSession.h"
-#import "UIView+Sentry.h"
-#import "UIViewController+Sentry.h"
 #import "URLSessionTaskMock.h"
 @import SentryPrivate;
 #import "SentryBinaryImageCache+Private.h"
