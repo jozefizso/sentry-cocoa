@@ -43,7 +43,6 @@
     NSObject *notificationObject = [[NSObject alloc] init];
     TestThread *thread = [[TestThread alloc] init];
     thread.notificationObject = notificationObject;
-    [thread start];
 
     XCTestExpectation *exp = [self expectationWithDescription:@"thread started"];
     [NSNotificationCenter.defaultCenter
@@ -59,6 +58,7 @@
                 }];
     [self waitForExpectationsWithTimeout:1 handler:nil];
 
+    [thread start];
     kern_return_t kr;
     kr = thread_suspend(thread.thread);
     XCTAssertTrue(kr == KERN_SUCCESS, @"");

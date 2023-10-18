@@ -42,7 +42,6 @@
     TestThread *thread = [[TestThread alloc] init];
     thread.notificationObject = notificationObject;
     thread.name = expectedName;
-    [thread start];
 
     XCTestExpectation *exp = [self expectationWithDescription:@"thread started"];
     [NSNotificationCenter.defaultCenter
@@ -58,6 +57,7 @@
                 }];
     [self waitForExpectationsWithTimeout:1 handler:nil];
 
+    [thread start];
     sentrycrashccd_init(10);
     [NSThread sleepForTimeInterval:0.1];
     [thread cancel];
