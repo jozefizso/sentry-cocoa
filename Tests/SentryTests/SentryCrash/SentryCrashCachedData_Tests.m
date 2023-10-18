@@ -55,9 +55,10 @@
                                 object:notificationObject];
                     [exp fulfill];
                 }];
-    [self waitForExpectationsWithTimeout:1 handler:nil];
 
     [thread start];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+
     sentrycrashccd_init(10);
     [NSThread sleepForTimeInterval:0.1];
     [thread cancel];

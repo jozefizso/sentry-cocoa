@@ -56,9 +56,10 @@
                                 object:notificationObject];
                     [exp fulfill];
                 }];
-    [self waitForExpectationsWithTimeout:1 handler:nil];
 
     [thread start];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+
     kern_return_t kr;
     kr = thread_suspend(thread.thread);
     XCTAssertTrue(kr == KERN_SUCCESS, @"");
