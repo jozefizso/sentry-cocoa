@@ -193,7 +193,13 @@ class SentryTracerTests: XCTestCase {
         XCTAssertEqual(2, fixture.dispatchQueue.blockOnMainInvocations.count, "The NSTimer must be started and cancelled on the main thread.")
     }
     
-    func testCancelDeadlineTimer_TracerDeallocated() {
+    func testCancelDeadlineTimer_TracerDeallocated() throws {
+#if !os(tvOS) && !os(watchOS)
+        if threadSanitizerIsPresent() {
+            throw XCTSkip("doesn't currently work with TSAN enabled. the tracer instance remains retained by something in the TSAN dylib, and we cannot debug the memory graph with TSAN attached to see what is retaining it. it's likely out of our control.")
+        }
+#endif // !os(tvOS) && !os(watchOS)
+        
         var invocations = 0
         fixture.dispatchQueue.blockBeforeMainBlock = {
             // The second invocation the block for invalidating the timer
