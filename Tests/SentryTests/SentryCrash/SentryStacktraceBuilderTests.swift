@@ -70,8 +70,10 @@ class SentryStacktraceBuilderTests: XCTestCase {
         XCTAssertTrue(filteredFrames.count == 1, "The frames must be ordered from caller to callee, or oldest to youngest.")
     }
 
-    func testConcurrentStacktraces() {
-        guard #available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *) else { return }
+    func testConcurrentStacktraces() throws {
+        guard #available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *) else {
+            throw XCTSkip("Not available for earlier platform versions")
+        }
 
         SentrySDK.start { options in
             options.dsn = TestConstants.dsnAsString(username: "SentryStacktraceBuilderTests")
@@ -87,8 +89,10 @@ class SentryStacktraceBuilderTests: XCTestCase {
         wait(for: [waitForAsyncToRun], timeout: 1)
     }
 
-    func testConcurrentStacktraces_noStitching() {
-        guard #available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *) else { return }
+    func testConcurrentStacktraces_noStitching() throws {
+        guard #available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *) else {
+            throw XCTSkip("Not available for earlier platform versions")
+        }
 
         SentrySDK.start { options in
             options.dsn = TestConstants.dsnAsString(username: "SentryStacktraceBuilderTests")
