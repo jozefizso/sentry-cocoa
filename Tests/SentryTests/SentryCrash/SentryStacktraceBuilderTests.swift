@@ -8,6 +8,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
         let queue = DispatchQueue(label: "SentryStacktraceBuilderTests")
 
         var sut: SentryStacktraceBuilder {
+            SentryDependencyContainer.sharedInstance().reachability = TestSentryReachability()
             let res = SentryStacktraceBuilder(crashStackEntryMapper: SentryCrashStackEntryMapper(inAppLogic: SentryInAppLogic(inAppIncludes: [], inAppExcludes: [])))
             res.symbolicate = true
             return res
@@ -15,11 +16,15 @@ class SentryStacktraceBuilderTests: XCTestCase {
     }
 
     private var fixture: Fixture!
+    
+    override class func setUp() {
+        super.setUp()
+        clearTestState()
+    }
 
     override func setUp() {
         super.setUp()
         fixture = Fixture()
-        clearTestState()
     }
 
     override func tearDown() {
@@ -78,6 +83,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
         SentrySDK.start { options in
             options.dsn = TestConstants.dsnAsString(username: "SentryStacktraceBuilderTests")
             options.swiftAsyncStacktraces = true
+            options.debug = true
         }
 
         let waitForAsyncToRun = expectation(description: "Wait async functions")
@@ -97,6 +103,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
         SentrySDK.start { options in
             options.dsn = TestConstants.dsnAsString(username: "SentryStacktraceBuilderTests")
             options.swiftAsyncStacktraces = false
+            options.debug = true
         }
 
         let waitForAsyncToRun = expectation(description: "Wait async functions")
