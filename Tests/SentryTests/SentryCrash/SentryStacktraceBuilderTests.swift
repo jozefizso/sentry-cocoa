@@ -88,6 +88,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
 
         let waitForAsyncToRun = expectation(description: "Wait async functions")
         Task {
+            print("[Sentry] [TEST] running async task...")
             let filteredFrames = await self.firstFrame()
             waitForAsyncToRun.fulfill()
             XCTAssertGreaterThanOrEqual(filteredFrames, 3, "The Stacktrace must include the async callers.")
@@ -108,6 +109,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
 
         let waitForAsyncToRun = expectation(description: "Wait async functions")
         Task {
+            print("[Sentry] [TEST] running async task...")
             let filteredFrames = await self.firstFrame()
             waitForAsyncToRun.fulfill()
             XCTAssertGreaterThanOrEqual(filteredFrames, 1, "The Stacktrace must have only one function.")
@@ -117,12 +119,16 @@ class SentryStacktraceBuilderTests: XCTestCase {
 
     @available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
     func firstFrame() async -> Int {
+        print("[Sentry] [TEST] first async frame about to await...")
         return await innerFrame1()
     }
 
     @available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
     func innerFrame1() async -> Int {
-        await Task { @MainActor in }.value
+        print("[Sentry] [TEST] second async frame about to await on task...")
+        await Task { @MainActor in
+            print("[Sentry] [TEST] executing task inside second async frame...")
+        }.value
         return await innerFrame2()
     }
 
@@ -133,37 +139,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
         let filteredFrames = actual.frames
             .compactMap({ $0.function })
             .filter { needed.contains(where: $0.contains) }
+        print("[Sentry] [TEST] returning filtered frames.")
         return filteredFrames.count
-
-    }
-
-    func asyncFrame1(expect: XCTestExpectation) {
-        fixture.queue.asyncAfter(deadline: DispatchTime.now()) {
-            self.asyncFrame2(expect: expect)
-        }
-    }
-    
-    func asyncFrame2(expect: XCTestExpectation) {
-        fixture.queue.async {
-            self.asyncAssertion(expect: expect)
-        }
-    }
-    
-    func asyncAssertion(expect: XCTestExpectation) {
-        let actual = fixture.sut.buildStacktraceForCurrentThread()
-
-        let filteredFrames = actual.frames.filter { frame in
-            return frame.function?.contains("testAsyncStacktraces") ?? false ||
-            frame.function?.contains("asyncFrame1") ?? false ||
-            frame.function?.contains("asyncFrame2") ?? false
-        }
-        let startFrames = actual.frames.filter { frame in
-            return frame.stackStart?.boolValue ?? false
-        }
-
-        XCTAssertTrue(filteredFrames.count >= 3, "The Stacktrace must include the async callers.")
-        XCTAssertTrue(startFrames.count >= 3, "The Stacktrace must have async continuation markers.")
-
-        expect.fulfill()
     }
 }
