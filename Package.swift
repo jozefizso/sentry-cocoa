@@ -6,7 +6,7 @@ let package = Package(
     platforms: [.iOS(.v11), .macOS(.v10_13), .tvOS(.v11), .watchOS(.v4)],
     products: [
         .library(name: "Sentry", targets: ["Sentry"]),
-        .library(name: "Sentry-Dynamic", type: .dynamic, targets: ["Sentry"]),
+        // .library(name: "Sentry-Dynamic", type: .dynamic, targets: ["Sentry"]),
         .library(name: "SentrySwiftUI", targets: ["SentrySwiftUI"])
     ],
     targets: [
@@ -37,9 +37,9 @@ let package = Package(
                  path: "Sources",
                  sources: [
                     "Swift"
-                 ],
-                 resources: [
-                    .copy("Resources/PrivacyInfo.xcprivacy")
+                 // ],
+                 // resources: [
+                 //    .copy("Resources/PrivacyInfo.xcprivacy")
                  ]
                ),
         .target ( name: "SentrySwiftUI",
