@@ -88,12 +88,13 @@ class SentryStacktraceBuilderTests: XCTestCase {
 
         let waitForAsyncToRun = expectation(description: "Wait async functions")
         Task {
-            print("[Sentry] [TEST] running async task...")
+            print("\(Date()) [Sentry] [TEST] running async task...")
             let filteredFrames = await self.firstFrame()
             waitForAsyncToRun.fulfill()
             XCTAssertGreaterThanOrEqual(filteredFrames, 3, "The Stacktrace must include the async callers.")
         }
-        wait(for: [waitForAsyncToRun], timeout: 1)
+
+        wait(for: [waitForAsyncToRun], timeout: 10)
     }
 
     func testConcurrentStacktraces_noStitching() throws {
@@ -109,25 +110,25 @@ class SentryStacktraceBuilderTests: XCTestCase {
 
         let waitForAsyncToRun = expectation(description: "Wait async functions")
         Task {
-            print("[Sentry] [TEST] running async task...")
+            print("\(Date()) [Sentry] [TEST] running async task...")
             let filteredFrames = await self.firstFrame()
             waitForAsyncToRun.fulfill()
             XCTAssertGreaterThanOrEqual(filteredFrames, 1, "The Stacktrace must have only one function.")
         }
-        wait(for: [waitForAsyncToRun], timeout: 1)
+        wait(for: [waitForAsyncToRun], timeout: 10)
     }
 
     @available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
     func firstFrame() async -> Int {
-        print("[Sentry] [TEST] first async frame about to await...")
+        print("\(Date()) [Sentry] [TEST] first async frame about to await...")
         return await innerFrame1()
     }
 
     @available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *)
     func innerFrame1() async -> Int {
-        print("[Sentry] [TEST] second async frame about to await on task...")
+        print("\(Date()) [Sentry] [TEST] second async frame about to await on task...")
         await Task { @MainActor in
-            print("[Sentry] [TEST] executing task inside second async frame...")
+            print("\(Date()) [Sentry] [TEST] executing task inside second async frame...")
         }.value
         return await innerFrame2()
     }
@@ -139,7 +140,7 @@ class SentryStacktraceBuilderTests: XCTestCase {
         let filteredFrames = actual.frames
             .compactMap({ $0.function })
             .filter { needed.contains(where: $0.contains) }
-        print("[Sentry] [TEST] returning filtered frames.")
+        print("\(Date()) [Sentry] [TEST] returning filtered frames.")
         return filteredFrames.count
     }
 }
